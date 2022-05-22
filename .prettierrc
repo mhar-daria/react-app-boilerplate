@@ -1,0 +1,19 @@
+{
+  overrides: [
+    {
+      files: '*.ts',
+      options: {
+        printWidth: 80,
+        trailingComma: 'es5',
+        tabWidth: 2,
+        semi: false,
+        singleQuote: true,
+        useTabs: false,
+        bracketSpacing: true,
+        jsxSingleQuote: false,
+        bracketSameLine: true,
+        arrowParens: 'avoid',
+      },
+    },
+  ],
+}
