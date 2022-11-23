@@ -1,11 +1,38 @@
-import { configureStore } from '@reduxjs/toolkit'
+import {
+  applyMiddleware,
+  combineReducers,
+  compose,
+  createStore,
+  Middleware,
+  Store,
+} from 'redux'
+import reducers from 'reducers'
+import rootSaga from 'sagas'
+import middleware, { sagaMiddleware } from './middleware'
 
-const store = configureStore({
-  reducer: {},
-})
+declare global {
+  interface Window {
+    __REDUX_DEVTOOLS_EXTENSION_COMPOSE__?: typeof compose
+  }
+}
 
-export type RootState = ReturnType<typeof store.getState>
+const rootReducer = combineReducers(reducers)
+const composeEnhancer =
+  (window['__REDUX_DEVTOOLS_EXTENSION_COMPOSE__'] as typeof compose) || compose
 
-export type AppDispatch = typeof store.dispatch
+export const configureStore = (
+  initialState: any = {},
+  additionalMiddleware: Middleware[] = []
+) => {
+  const store: Store = createStore(
+    rootReducer,
+    initialState,
+    composeEnhancer(applyMiddleware(...additionalMiddleware, ...middleware))
+  )
 
-export default store
+  sagaMiddleware.run(rootSaga)
+
+  return store
+}
+
+export type RootState = ReturnType<typeof configureStore>

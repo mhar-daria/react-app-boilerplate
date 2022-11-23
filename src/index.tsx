@@ -1,17 +1,26 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import './index.css'
-import App from './App'
+import './assets/css/tailwind-build.css'
 import reportWebVitals from './reportWebVitals'
-import store from './Store'
+import { configureStore } from './store'
 import { Provider } from 'react-redux'
+import RouteWrapper from './components/RouteWrapper'
+import { IconContext } from 'react-icons'
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
+
+const store = configureStore()
+
+const iconContext: { [key: string]: string } = {
+  color: '#a3aab6',
+}
 
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App />
+      <IconContext.Provider value={iconContext}>
+        <RouteWrapper />
+      </IconContext.Provider>
     </Provider>
   </React.StrictMode>
 )

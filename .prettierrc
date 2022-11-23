@@ -15,5 +15,14 @@
         arrowParens: 'avoid',
       },
     },
+    {
+      files: ['*.html'],
+      options: {
+        printWidth: 120,
+        tabWidth: 4,
+        useTabs: false,
+        bracketSameLine: true,
+      }
+    }
   ],
 }
